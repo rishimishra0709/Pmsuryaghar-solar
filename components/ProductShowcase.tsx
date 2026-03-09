@@ -35,7 +35,10 @@ export default function ProductShowcase({ company }: ProductShowcaseProps) {
     ];
 
     return (
-        <section id="products" className="py-20 bg-gray-50">
+        <section id="products" className="relative py-24 overflow-hidden bg-gradient-to-br from-slate-50 via-white to-emerald-50/30">
+            {/* Subtle bg */}
+            <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-emerald-100/30 rounded-full blur-[100px] pointer-events-none animate-float-slow" />
+
             <div className="container mx-auto px-4">
                 {/* Section Header */}
                 <div className="text-center mb-12">
@@ -43,24 +46,31 @@ export default function ProductShowcase({ company }: ProductShowcaseProps) {
                         initial={{ opacity: 0, y: 20 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
-                        className="inline-block bg-orange-100 text-orange-600 px-6 py-2 rounded-full font-semibold mb-4"
+                        className="inline-flex items-center gap-2 bg-emerald-100 text-emerald-700 border border-emerald-200 px-6 py-2 rounded-full font-semibold mb-4"
                     >
                         Our Products
                     </motion.div>
                     <motion.h2
-                        initial={{ opacity: 0, y: 20 }}
+                        initial={{ opacity: 0, y: 30 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
                         transition={{ delay: 0.1 }}
-                        className="text-4xl md:text-5xl font-bold text-gray-900 mb-4"
+                        className="text-4xl md:text-5xl font-extrabold text-gray-900 mb-4 font-jakarta"
                     >
                         Premium Solar Solutions
                     </motion.h2>
+                    <motion.div
+                        initial={{ scaleX: 0 }}
+                        whileInView={{ scaleX: 1 }}
+                        viewport={{ once: true }}
+                        transition={{ delay: 0.2, duration: 0.7 }}
+                        className="h-1 w-20 bg-gradient-to-r from-emerald-400 to-amber-400 mx-auto mb-5 rounded-full origin-left"
+                    />
                     <motion.p
                         initial={{ opacity: 0, y: 20 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
-                        transition={{ delay: 0.2 }}
+                        transition={{ delay: 0.25 }}
                         className="text-xl text-gray-600 max-w-3xl mx-auto"
                     >
                         High-quality solar products with industry-leading warranties
@@ -73,9 +83,9 @@ export default function ProductShowcase({ company }: ProductShowcaseProps) {
                         <button
                             key={f.value}
                             onClick={() => setFilter(f.value)}
-                            className={`px-6 py-3 rounded-full font-semibold transition-all ${filter === f.value
-                                    ? 'bg-orange-600 text-white shadow-lg scale-105'
-                                    : 'bg-white text-gray-700 hover:bg-orange-50 shadow'
+                            className={`px-6 py-3 rounded-full font-semibold transition-all duration-200 ${filter === f.value
+                                ? 'bg-gradient-to-r from-emerald-600 to-green-600 text-white shadow-lg shadow-emerald-200 scale-105'
+                                : 'bg-white text-gray-700 hover:bg-emerald-50 shadow border border-gray-100 hover:border-emerald-200'
                                 }`}
                         >
                             {f.label}
@@ -94,10 +104,10 @@ export default function ProductShowcase({ company }: ProductShowcaseProps) {
                                 whileInView={{ opacity: 1, y: 0 }}
                                 viewport={{ once: true }}
                                 transition={{ delay: index * 0.1 }}
-                                className="bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all hover:scale-105"
+                                className="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-2 border border-gray-100 hover:border-emerald-100 group"
                             >
                                 {/* Product Header */}
-                                <div className="bg-gradient-to-br from-orange-500 to-amber-500 p-6 text-white">
+                                <div className="bg-gradient-to-br from-emerald-500 to-green-600 p-6 text-white group-hover:from-emerald-400 group-hover:to-green-500 transition-all duration-300">
                                     <div className="flex items-start justify-between mb-4">
                                         <div className="bg-white/20 backdrop-blur-sm p-3 rounded-xl">
                                             <Icon className="w-8 h-8" />
@@ -134,21 +144,18 @@ export default function ProductShowcase({ company }: ProductShowcaseProps) {
                                     )}
 
                                     <div className="mb-6">
-                                        <p className="text-sm text-gray-600 mb-3">Key Features</p>
+                                        <p className="text-sm text-gray-500 mb-3">Key Features</p>
                                         <ul className="space-y-2">
                                             {product.features.map((feature, idx) => (
-                                                <li
-                                                    key={idx}
-                                                    className="flex items-start gap-2 text-sm text-gray-700"
-                                                >
-                                                    <span className="w-1.5 h-1.5 bg-orange-600 rounded-full mt-1.5 flex-shrink-0"></span>
+                                                <li key={idx} className="flex items-start gap-2 text-sm text-gray-700">
+                                                    <span className="w-1.5 h-1.5 bg-emerald-500 rounded-full mt-1.5 flex-shrink-0"></span>
                                                     <span>{feature}</span>
                                                 </li>
                                             ))}
                                         </ul>
                                     </div>
 
-                                    <button className="w-full bg-orange-600 text-white py-3 rounded-xl font-semibold hover:bg-orange-700 transition-colors">
+                                    <button className="w-full bg-gradient-to-r from-emerald-600 to-green-600 text-white py-3 rounded-xl font-semibold hover:from-emerald-500 hover:to-green-500 transition-all shadow-sm hover:shadow-emerald-200">
                                         Get Quote
                                     </button>
                                 </div>
