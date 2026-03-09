@@ -43,12 +43,12 @@ export async function POST(request: NextRequest) {
         );
     } catch (error) {
         // Handle validation errors
-        if (error instanceof z.ZodError) {
+        if (error instanceof ZodError) {
             return NextResponse.json(
                 {
                     success: false,
                     message: 'Validation failed',
-                    errors: error.errors,
+                    errors: error.issues,
                 },
                 { status: 400 }
             );
