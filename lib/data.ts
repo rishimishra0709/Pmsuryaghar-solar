@@ -8,9 +8,9 @@ export const companiesData = new Map<string, CompanyData>([
         'demo-solar',
         {
             slug: 'demo-solar',
-            name: 'Braj Mohan Developer Solar',
+            name: 'BMD Solar',
             tagline: 'Powering Bihar with Clean Solar Energy',
-            description: 'Braj Mohan Developer Solar is a trusted solar energy provider based in Patna, Bihar, with expertise in residential and commercial solar installations. Authorized dealer for PM Surya Ghar Muft Bijli Yojana.',
+            description: 'BMD Solar (Braj Mohan Developer Solar) is a trusted solar energy provider based in Patna, Bihar, with expertise in residential and commercial solar installations. Authorized dealer for PM Surya Ghar Muft Bijli Yojana.',
 
             contact: {
                 phone: '+91 90310 74805',
@@ -290,8 +290,8 @@ export const companiesData = new Map<string, CompanyData>([
             ],
 
             seo: {
-                title: 'Braj Mohan Developer Solar - Best Solar Panel Installation in Patna, Bihar',
-                description: 'Braj Mohan Developer Solar, Patna. Get up to ₹78,000 subsidy under PM Surya Ghar Yojana. Zero down payment, 4-year ROI. Trusted solar installer in Bihar. Call +91 90310 74805.',
+                title: 'BMD Solar - Best Solar Panel Installation in Patna, Bihar',
+                description: 'BMD Solar (Braj Mohan Developer Solar), Patna. Get up to ₹78,000 subsidy under PM Surya Ghar Yojana. Zero down payment, 4-year ROI. Trusted solar installer in Bihar. Call +91 90310 74805.',
                 keywords: [
                     'solar panels Patna',
                     'solar installation Bihar',
@@ -299,7 +299,7 @@ export const companiesData = new Map<string, CompanyData>([
                     'rooftop solar Patna',
                     'solar subsidy Bihar',
                     'best solar company Patna',
-                    'solar panel price Bihar',
+                    'BMD Solar Patna',
                     'Braj Mohan solar Patna',
                 ],
             },
