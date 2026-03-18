@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Battery, Zap, Sun, Package } from 'lucide-react';
-import { CompanyData, SolarProduct } from '@/lib/types';
+import { CompanyData } from '@/lib/types';
 import { formatCurrency } from '@/lib/utils';
 
 interface ProductShowcaseProps {

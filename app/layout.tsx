@@ -1,6 +1,8 @@
 import type { Metadata } from 'next';
 import { Inter, Plus_Jakarta_Sans } from 'next/font/google';
 import './globals.css';
+import { ChatProvider } from '@/components/ChatProvider';
+import SolarChat from '@/components/SolarChat';
 
 const inter = Inter({
   subsets: ['latin'],
@@ -27,7 +29,12 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className="scroll-smooth">
-      <body className={`${inter.variable} ${plusJakarta.variable} ${inter.className} bg-white text-gray-900 antialiased`}>{children}</body>
+      <body className={`${inter.variable} ${plusJakarta.variable} ${inter.className} bg-white text-gray-900 antialiased`}>
+        <ChatProvider>
+          {children}
+          <SolarChat />
+        </ChatProvider>
+      </body>
     </html>
   );
 }

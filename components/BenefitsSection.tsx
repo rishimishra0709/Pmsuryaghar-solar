@@ -66,7 +66,7 @@ export default function BenefitsSection({ company }: BenefitsSectionProps) {
                 {/* Benefits Grid */}
                 <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
                     {benefits.map((benefit, index) => {
-                        const IconComponent = (Icons as any)[benefit.icon] || Icons.Star;
+                        const IconComponent = (Icons[benefit.icon as keyof typeof Icons] as React.ElementType) || Icons.Star;
                         const color = accentColors[index % accentColors.length];
 
                         return (

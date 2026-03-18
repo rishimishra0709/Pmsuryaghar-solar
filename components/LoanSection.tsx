@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Percent, TrendingDown, CheckCircle, Leaf } from 'lucide-react';
+import { Percent, CheckCircle, Leaf } from 'lucide-react';
 import { CompanyData } from '@/lib/types';
 import { calculateEMI, formatCurrency } from '@/lib/utils';
 

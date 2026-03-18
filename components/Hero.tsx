@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
 import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowRight, ChevronLeft, ChevronRight, Sun, Leaf, IndianRupee } from 'lucide-react';
@@ -57,25 +57,26 @@ export default function Hero({ company }: HeroProps) {
     const [direction, setDirection] = useState(1); // 1 = forward, -1 = backward
     const [videoLoaded, setVideoLoaded] = useState(false);
     const videoRef = useRef<HTMLVideoElement>(null);
-    const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
-
-    const resetTimer = (idx = current) => {
-        if (timerRef.current) clearInterval(timerRef.current);
-        timerRef.current = setTimeout(() => {
-            setCurrent(p => {
-                const next = (p + 1) % slides.length;
-                resetTimer(next);
-                return next;
-            });
-        }, SLIDE_DURATIONS[idx]);
-    };
+    const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
     useEffect(() => {
-        resetTimer(0);
-        return () => { if (timerRef.current) clearTimeout(timerRef.current); };
-    }, []);
+        if (timerRef.current) clearTimeout(timerRef.current);
+        
+        timerRef.current = setTimeout(() => {
+            setDirection(1);
+            setCurrent(prev => (prev + 1) % slides.length);
+        }, SLIDE_DURATIONS[current]);
 
-    const goTo = (i: number, dir = 1) => { setDirection(dir); setCurrent(i); resetTimer(i); };
+        return () => {
+            if (timerRef.current) clearTimeout(timerRef.current);
+        };
+    }, [current]);
+
+    const goTo = (i: number, dir = 1) => {
+        if (timerRef.current) clearTimeout(timerRef.current);
+        setDirection(dir);
+        setCurrent(i);
+    };
     const prev = () => goTo((current - 1 + slides.length) % slides.length, -1);
     const next = () => goTo((current + 1) % slides.length, 1);
 

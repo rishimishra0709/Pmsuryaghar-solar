@@ -165,7 +165,7 @@ export default function ContactForm({ company }: ContactFormProps) {
                             {submitStatus === 'success' && (
                                 <motion.div initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} className="flex items-center gap-3 bg-emerald-50 border-2 border-emerald-400 text-emerald-700 px-6 py-4 rounded-xl">
                                     <CheckCircle className="w-6 h-6" />
-                                    <p className="font-semibold">Thank you! We'll contact you within 24 hours.</p>
+                                    <p className="font-semibold">Thank you! We&apos;ll contact you within 24 hours.</p>
                                 </motion.div>
                             )}
 

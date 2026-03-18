@@ -105,7 +105,7 @@ export default function TestimonialsCarousel({ company }: TestimonialsCarouselPr
 
                                 {/* Comment */}
                                 <p className="text-xl md:text-2xl text-gray-700 text-center mb-8 leading-relaxed italic">
-                                    "{currentTestimonial.comment}"
+                                    &quot;{currentTestimonial.comment}&quot;
                                 </p>
 
                                 {/* Customer Info */}
