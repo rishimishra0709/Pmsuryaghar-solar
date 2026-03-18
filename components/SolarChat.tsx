@@ -56,10 +56,18 @@ export default function SolarChat() {
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ message: text, history: messages }),
             });
+            
+            if (!response.ok) {
+                const errData = await response.json().catch(() => ({}));
+                console.error('Chat API Error Details:', {
+                    status: response.status,
+                    statusText: response.statusText,
+                    data: errData
+                });
+                throw new Error(errData.details || errData.error || `HTTP ${response.status}`);
+            }
+
             const data = await response.json();
-            
-            if (data.error) throw new Error(data.error);
-            
             let replyText = data.reply || "Maaf kijiyega, system response nahi mil raha. Please try again.";
             
             // Handle Structured Lead Capture
