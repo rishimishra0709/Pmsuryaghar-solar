@@ -6,7 +6,8 @@ export async function POST(req: NextRequest) {
         const apiKey = process.env.OPENROUTER_API_KEY;
 
         if (!apiKey) {
-            return NextResponse.json({ error: 'API key not configured' }, { status: 500 });
+            console.error('CRITICAL: OPENROUTER_API_KEY is not set in environment variables.');
+            return NextResponse.json({ error: 'Chat API is not configured. Please set OPENROUTER_API_KEY.' }, { status: 500 });
         }
 
         const systemPrompt = `
@@ -53,35 +54,60 @@ IMPORTANT: When the user has provided their Name, Phone, and City, you MUST incl
 [/LEAD_DATA]
 `;
 
-        const formattedHistory = history.map((m: { role: string; content: string }) => ({
-            role: m.role,
-            content: m.content
-        }));
+        // Ensure history is an array and format it safely
+        const formattedHistory = Array.isArray(history) 
+            ? history.map((m: any) => ({
+                role: m.role || 'user',
+                content: m.content || ''
+            })).filter(m => m.content)
+            : [];
+
+        const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://pmsuryaghar-solar.vercel.app'; // Fallback to a default or omit
 
         const response = await fetch("https://openrouter.ai/api/v1/chat/completions", {
             method: "POST",
             headers: {
                 "Authorization": `Bearer ${apiKey}`,
-                "HTTP-Referer": `${process.env.NEXT_PUBLIC_SITE_URL}`, // Optional, for including your app on openrouter.ai rankings.
-                "X-Title": `Braj Mohan Solar AI`, // Optional. Shows in rankings on openrouter.ai.
+                "HTTP-Referer": siteUrl,
+                "X-Title": `Braj Mohan Solar AI`,
                 "Content-Type": "application/json"
             },
             body: JSON.stringify({
-                "model": "google/gemini-2.0-flash-lite-001", // Fast and efficient for chat
+                "model": "google/gemini-2.0-flash-lite-001",
                 "messages": [
                     { "role": "system", "content": systemPrompt },
                     ...formattedHistory,
                     { "role": "user", "content": message }
                 ],
+                "temperature": 0.7,
+                "max_tokens": 1000
             })
         });
 
-        const data = await response.json();
-        const reply = data.choices[0].message.content;
+        if (!response.ok) {
+            const errorData = await response.json().catch(() => ({}));
+            console.error('OpenRouter API Error Status:', response.status, errorData);
+            return NextResponse.json({ 
+                error: `API responded with status ${response.status}`,
+                details: errorData.error?.message || 'Unknown provider error'
+            }, { status: response.status });
+        }
 
+        const data = await response.json();
+        
+        if (!data.choices || !data.choices[0] || !data.choices[0].message) {
+            console.error('Invalid OpenRouter Response Structure:', data);
+            throw new Error('Unexpected API response structure');
+        }
+
+        const reply = data.choices[0].message.content;
         return NextResponse.json({ reply });
-    } catch (error) {
-        console.error('Chat API Error:', error);
-        return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
+
+    } catch (error: any) {
+        console.error('Chat API Handler Error:', error);
+        return NextResponse.json({ 
+            error: 'Internal Server Error',
+            message: error.message 
+        }, { status: 500 });
     }
 }
