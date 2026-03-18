@@ -1,16 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
 
-export async function GET(req: NextRequest) {
-    const allKeys = Object.keys(process.env).sort();
-    return NextResponse.json({ 
-        status: 'ok', 
-        apiKeyPresent: !!process.env.OPENROUTER_API_KEY,
-        availableKeys: allKeys.filter(k => k.includes('API') || k.includes('KEY') || k.includes('NEXT')),
-        nodeVersion: process.version,
-        timestamp: new Date().toISOString()
-    });
-}
-
 export async function POST(req: NextRequest) {
     try {
         const { message, history } = await req.json();
